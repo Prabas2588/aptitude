@@ -84,7 +84,7 @@
         }
     </style>
 </head>
-<body onload="clearData();" onblur="clearData();">
+<body id="body" ondragstart="return false;" onselectstart="return false;"  oncontextmenu="return false;" onload="clearData();" onblur="clearData();" style="text-align: center; font-size: 20px;">
     <div style="display: flex; align-items: center; flex-direction: row-reverse;">
         <p id="watermark">ASCUS TECH ONLINE EXAM</p>
     </div>
@@ -192,7 +192,6 @@
         let selectedQuestions = [];
         let userAnswers = [];
         let currentQuestion = 0;
-        const userName = new URLSearchParams(window.location.search).get('user_name');
 
         function shuffleQuestions() {
             const questions = allQuestions.map((q, i) => ({ question: q[0], choices: q[1], correct: correctAnswersIndex[i] }));
@@ -288,9 +287,11 @@
             selectedQuestions.forEach((q, i) => {
                 if (userAnswers[i] === q.correct) {
                     score++;
+                    
                 }
+                
             });
-            window.location.href = `submit.php?user_name=${userName}&score=${score}`;
+           document.getElementById("body").innerHTML = `Your score: ${score}`;
         }
 
         shuffleQuestions();
@@ -319,3 +320,4 @@
     </script>
 </body>
 </html>
+
